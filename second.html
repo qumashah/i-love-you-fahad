@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>هي بعد تحبك!</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #fff0f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    #message {
+      position: absolute;
+      font-size: 48px;
+      color: #ff3366;
+      font-weight: bold;
+      z-index: 10;
+    }
+
+    .explosion {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ff69b4;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(4) translate(var(--x), var(--y));
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="message">هي بعد تحبك ❤️</div>
+
+<script>
+  const colors = ['#ff3366','#ff69b4','#ff99cc','#ffb6c1'];
+
+  function createExplosion() {
+    for (let i = 0; i < 10; i++) { // كل مرة 10 انفجارات
+      const explosion = document.createElement('div');
+      explosion.classList.add('explosion');
+
+      // لون عشوائي
+      explosion.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+      // اتجاه عشوائي
+      const x = (Math.random() - 0.5) * 300 + 'px';
+      const y = (Math.random() - 0.5) * 300 + 'px';
+      explosion.style.setProperty('--x', x);
+      explosion.style.setProperty('--y', y);
+
+      // مكان الانفجار حول منتصف الشاشة
+      explosion.style.left = '50%';
+      explosion.style.top = '50%';
+      document.body.appendChild(explosion);
+
+      // إزالة العنصر بعد انتهاء الأنيميشن
+      setTimeout(() => explosion.remove(), 1000);
+    }
+  }
+
+  // استدعاء الانفجارات كل نصف ثانية بدون توقف
+  setInterval(createExplosion, 500);
+</script>
+</body>
+</html>
